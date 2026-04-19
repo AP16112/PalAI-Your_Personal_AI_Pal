@@ -2,18 +2,19 @@
 
 A lightweight Flask project that turns your browser into a personal AI assistant. Users can ask questions in plain language or paste email text to get an instant AI-powered summary using OpenAI Groq.
 
-## 📸 Demo
-
-### Ask Anything
-![Ask Anything Screen](screenshots/0.png)
-
-### Summarize Email
-![Summarize Email Screen](screenshots/1.png)
+## Demo
 
 ### Main Interface
-![Main Interface](screenshots/2.png)
+![Ask Anything Screen](screenshots/0.png)
 
-## 🔥 What this project does
+### Ask Anything
+![Summarize Email Screen](screenshots/1.png)
+
+### Summarize Email
+![Summarize Email Screen](screenshots/2.png)
+
+
+## What this project does
 
 - Hosts a Flask web app with a clean single-page UI
 - Provides a chat-style prompt for asking anything
@@ -21,7 +22,7 @@ A lightweight Flask project that turns your browser into a personal AI assistant
 - Uses `.env` for sensitive API config
 - Uses the OpenAI Groq API via the official OpenAI Python client
 
-## 🚀 Key features
+## Key features
 
 - `Ask Anything` form for conversational AI responses
 - `Summarize Email` form for summarizing email text in 2-3 sentences
@@ -29,7 +30,7 @@ A lightweight Flask project that turns your browser into a personal AI assistant
 - Simple responsive UI using `static/style.css`
 - Environment-based API key loading with `python-dotenv`
 
-## 🧠 Tech stack
+## Tech stack
 
 - Python 3
 - Flask
@@ -37,7 +38,7 @@ A lightweight Flask project that turns your browser into a personal AI assistant
 - python-dotenv
 - HTML, CSS, JavaScript
 
-## 📦 Project structure
+## Project structure
 
 ```text
 .
@@ -51,7 +52,7 @@ A lightweight Flask project that turns your browser into a personal AI assistant
     └── index.html
 ```
 
-## ⚙️ How it works
+## How it works
 
 1. `main.py` creates a Flask app and loads environment variables from `.env`
 2. The homepage renders `templates/index.html`
@@ -60,7 +61,7 @@ A lightweight Flask project that turns your browser into a personal AI assistant
 5. Flask calls OpenAI Groq through `OpenAI.responses.create()`
 6. The response is returned as JSON and displayed instantly on the page
 
-## 📥 Setup instructions
+## Setup instructions
 
 1. Clone the repo:
    ```bash
@@ -94,13 +95,13 @@ A lightweight Flask project that turns your browser into a personal AI assistant
    http://127.0.0.1:5000
    ```
 
-## 📝 Usage
+## Usage
 
 - Use the top input to ask general questions and receive AI-generated answers.
 - Use the second textarea to paste an email and get a short summary.
 - The page updates dynamically without a full reload.
 
-## 💡 Non-technical details
+## Non-technical details
 
 This project is designed for learners and early-stage developers who want a simple real-world Flask app that integrates AI.
 
@@ -108,18 +109,18 @@ This project is designed for learners and early-stage developers who want a simp
 - Great for showing a portfolio project with AI functionality
 - Includes clean code structure and self-explanatory comments
 
-## ✅ Why this project is useful
+## Why this project is useful
 
 - Shows how to build a real AI assistant with minimal code
 - Demonstrates secure handling of API keys with `.env`
 - Teaches how to connect frontend forms to backend APIs using `fetch()`
 - Provides a nice example of using Flask templates and static assets
 
-## 🔒 Security note
+## Security note
 
 Do not commit your `.env` file or API key to GitHub. The repository’s `.gitignore` already excludes `.env` and Python cache files.
 
-## 🛠️ Future improvements
+## Future improvements
 
 - Add user authentication
 - Save chat history to a database
@@ -127,8 +128,3 @@ Do not commit your `.env` file or API key to GitHub. The repository’s `.gitign
 - Improve UI with better styling and mobile layout
 - Add actual deployment support for Heroku, Railway, or Fly.io
 
-## 📷 Demo images
-
-The images above are demo previews of the two main user workflows:
-- Ask a question
-- Summarize an email
