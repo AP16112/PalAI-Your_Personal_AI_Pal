@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PalAI - “personal AI pal”</title>
+
+    <!-- Jinja templates is used to write the python code inside the html files just like ejs which is use to write JS inside the html files. -->
+    <!-- for jinja templates we use { { }} this . -->
+    <link rel="stylesheet"  href="{{ url_for('static', filename='style.css') }}">
+    <!-- for static files => dynamically generate the url using this url_for fn -->
+    <!-- url_for("static", filename="style.css") tells Flask: -->
+    <!-- Look in the static folder (by default static/, or whatever you set with static_folder). -->
+    <!-- Build the URL path using the configured static_url_path (by default /static, or whatever you set with static_url_path). -->
+    <!-- If you didn’t customize anything, Flask will return:-  /static/style1.css -->
+</head>
+<body>
+    <h1 class="main-heading">"PalAI" - Your personal AI pal</h1>
+
+    <div class="container">
+        <!-- Form 1 for Normal query input -->
+        <h2>Ask Anything</h2>
+        <form id="askForm">
+            <input type="text" name="question" placeholder="Ask anything..."  required>
+            <button type="submit">Ask</button>
+        </form>
+        <p id="ans-loading"  style="display: none;">Processing...</p>
+        <p id="answer"></p>
+
+        <hr>
+
+        <!-- Form 2 for email input to summarize it -->
+        <h2>Summarize Email</h2>
+        <form id="emailForm">
+            <textarea type="text" name="email" placeholder="Paste your email here.."  required></textarea>
+            <button type="submit">Summarize</button>
+        </form>
+        <p id="summary-loading"  style="display: none;">Processing...</p>
+        <p id="summary"></p>
+    </div>
+
+    <script>
+        // Here we will write all the JS code required in this project
+        document.getElementById("askForm").onsubmit = async (e) => {
+            e.preventDefault();
+            // Prevents the browser’s default behavior of reloading the page when the form is submitted. 
+            // This lets you handle the submission with JavaScript instead.
+            // Here this 'e' is actually representing the event which will happens on form submission
+
+            let formData = new FormData(e.target);
+            // FormData → a built‑in JavaScript object that makes it easy to collect form inputs and send them (often via fetch or XMLHttpRequest).
+            // e.target → refers to the element that triggered the event. In the case of a form submission handler, e.target is the <form> itself.
+            // new FormData(e.target) → automatically gathers all the form’s input fields (name/value pairs) into a structured object.
+
+            // Get references to elements
+            let loading = document.getElementById("ans-loading");
+            loading.style.display = "block";    // show loader
+
+            // await fetch(...) → makes an HTTP request and waits for the response.
+            // "/ask" → the endpoint in your Flask app that will handle the request.
+            // method: "POST" → specifies this is a POST request (used for sending data).
+            // body: formData → sends the collected form inputs (from new FormData(e.target)) as the request body.
+            let res = await fetch("/ask", {
+                method: "POST",
+                body: formData
+            });
+            // Here we are sending the request to the backend and their waiting for the response
+
+            // .json() → a method on the response object that reads the body and parses it as JSON.
+            // await → since .json() returns a promise, await pauses execution until the JSON is fully parsed.
+            // data → now holds the parsed JavaScript object.
+            let data = await res.json();
+            document.getElementById("answer").innerText = data.response;
+            // data.response → comes from the parsed JSON object you got with await res.json().
+            // As from the backend we are sending the output in JSON object where 'response' as the key
+
+            loading.style.display = "none";   //gide loader again
+        };
+
+
+        document.getElementById("emailForm").onsubmit = async (e) => {
+            e.preventDefault();
+            // Prevents the browser’s default behavior of reloading the page when the form is submitted. 
+            // This lets you handle the submission with JavaScript instead.
+            // Here this 'e' is actually representing the event which will happens on form submission
+
+            let formData = new FormData(e.target);
+            // FormData → a built‑in JavaScript object that makes it easy to collect form inputs and send them (often via fetch or XMLHttpRequest).
+            // e.target → refers to the element that triggered the event. In the case of a form submission handler, e.target is the <form> itself.
+            // new FormData(e.target) → automatically gathers all the form’s input fields (name/value pairs) into a structured object.
+
+            // Get references to elements
+            let loading = document.getElementById("summary-loading");
+            loading.style.display = "block";    // show loader
+
+            // await fetch(...) → makes an HTTP request and waits for the response.
+            // "/ask" → the endpoint in your Flask app that will handle the request.
+            // method: "POST" → specifies this is a POST request (used for sending data).
+            // body: formData → sends the collected form inputs (from new FormData(e.target)) as the request body.
+            let res = await fetch("/summarize", {
+                method: "POST",
+                body: formData
+            });
+
+            // .json() → a method on the response object that reads the body and parses it as JSON.
+            // await → since .json() returns a promise, await pauses execution until the JSON is fully parsed.
+            // data → now holds the parsed JavaScript object.
+            let data = await res.json();
+            document.getElementById("summary").innerText = data.response;
+            // data.response → comes from the parsed JSON object you got with await res.json().
+            // As from the backend we are sending the output in JSON object where 'response' as the key
+
+            loading.style.display = "none";   //gide loader again
+        };
+    </script>
+</body>
+</html>
